@@ -59,7 +59,7 @@ while(True):
             now_rsi = rsi(data, 14).iloc[-1]
             av_buy = float(upbit.get_avg_buy_price(coinlist[i]))
             profit_price = round(av_buy*1.02, 4)   
-            cur_price = pyupbit.get_current_price(coin)         
+            cur_price = pyupbit.get_current_price(coinlist[i])         
             print(coinlist[i], "현재시간: ", datetime.datetime.now(), "< RSI > :", now_rsi)
         
             if now_rsi <= 30 :
