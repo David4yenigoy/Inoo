@@ -4,8 +4,8 @@ import datetime
 import time
 
 
-access = "access key"   # access key MjeWPgV5gpIxq04nsHPng4cv0E50PnXdEzORh6Ox
-secret = "secret key"   # secret key Aya1S8pJKIeuWZyfpRpANfPok44JrDnIhgRxAgGb
+access = "access key"  
+secret = "secret key"
 
 upbit = pyupbit.Upbit(access, secret)
 
@@ -31,18 +31,9 @@ higher70 = []
 # 시장가 매수 함수 
 def buy(coin): 
     money = upbit.get_balance("KRW") 
-    if money > 30300 : 
+    if money > 50500 : 
         res = upbit.buy_market_order(coin, 30000) 
-    # elif money < 100000: 
-    #     res = upbit.buy_market_order(coin, money*0.9) 
-    # elif money < 200000 : 
-    #     res = upbit.buy_market_order(coin, money*0.7) 
-    # else : 
-    #     res = upbit.buy_market_order(coin, money*0.5) 
     return
-
-        # ret = upbit.buy_limit_order("KRW-XRP", 100, 20)
-        # ret = upbit.sell_limit_order("KRW-XRP", 1000, 20)
 
 # 시장가 매도 함수 
 def sell(coin): 
@@ -51,10 +42,6 @@ def sell(coin):
     total = amount * cur_price 
     if total < 500000 : 
         res = upbit.sell_market_order(coin, amount) 
-    # elif total < 300000: 
-    #     res = upbit.sell_market_order(coin, amount*0.5) 
-    # elif total < 400000: 
-    #     res = upbit.sell_market_order(coin, amount*0.7) 
     else : 
         res = upbit.sell_market_order(coin, amount*0,8) 
     return
@@ -80,13 +67,12 @@ while(True):
             elif now_rsi >= 33 and lower28[i] == True:
                 buy(coinlist[i])
                 lower28[i] = False
-            elif now_rsi >= 60 and cur_price >= profit_price and av_buy > 0:    # higher70[i] == False:
-                sell(coinlist[i])
-                higher70[i] = True
-            elif now_rsi <= 50 :
-                higher70[i] = False
-            time.sleep(0.2)
+            elif now_rsi >= 60 and cur_price >= profit_price :
+                sell(coinlist[i])                
+            elif now_rsi >= 50 :
+                lower28[i] = False
+            time.sleep(0.1)
             
         except Exception as e:
             print(e)
-            time.sleep(0.2)
+            time.sleep(0.1)
